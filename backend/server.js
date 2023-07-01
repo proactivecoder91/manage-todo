@@ -20,5 +20,15 @@ db.connect((err) => {
 
 app.use(express.json());
 
+//CREATING THE GET API TO GET THE LIST OF TODOS FROM THE TABLE
+app.get("/getTodos", (req, res) => {
+  const sql = "SELECT * FROM todos";
+  db.query(sql, (err, results) => {
+    if (err) {
+      throw err;
+    } else res.json(results);
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
