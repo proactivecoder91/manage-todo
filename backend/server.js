@@ -30,5 +30,16 @@ app.get("/getTodos", (req, res) => {
   });
 });
 
+//INSERTING TODOS IN THE TABLE
+app.post("/createTodo", (req, res) => {
+  const { task_name } = req.body;
+  const sql = "INSERT INTO todos(task_name) values(?)";
+  db.query(sql, [task_name], (err, _results) => {
+    if (err) {
+      throw err;
+    } else res.json({ message: "todo added" });
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
