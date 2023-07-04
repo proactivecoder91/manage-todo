@@ -41,5 +41,17 @@ app.post("/createTodo", (req, res) => {
   });
 });
 
+//UPDATING TASK NAME
+app.put("/editTodo/:id", (req, res) => {
+  const { id } = req.params;
+  const { task_name } = req.body;
+  const sql = "UPDATE todos set task_name = ? where id = ?";
+  db.query(sql, [task_name, id], (err, results) => {
+    if (err) {
+      throw err;
+    } else res.json({ message: "todo updated" });
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
