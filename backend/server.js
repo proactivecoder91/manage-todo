@@ -53,5 +53,16 @@ app.put("/editTodo/:id", (req, res) => {
   });
 });
 
+//SOFT DELETING API
+app.put("/softDeleteTodo/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "UPDATE todos set active_flag = ? where id = ?";
+  db.query(sql, ["N", id], (err, results) => {
+    if (err) {
+      throw err;
+    } else res.json({ message: "soft deleted" });
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
