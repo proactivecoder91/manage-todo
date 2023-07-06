@@ -64,5 +64,18 @@ app.put("/softDeleteTodo/:id", (req, res) => {
   });
 });
 
+//HARD DELETE API
+app.delete("/deleteTodo/:id", (req, res) => {
+  const { id } = req.params;
+  const sql = "delete from todos where id = ?";
+  db.query(sql, [id], (err, results) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json({ message: "hard deleted" });
+    }
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
