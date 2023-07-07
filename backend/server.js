@@ -77,5 +77,17 @@ app.delete("/deleteTodo/:id", (req, res) => {
   });
 });
 
+//GET SOFT DELETED LIST
+app.get("/getSoftDeletedTodos", (req, res) => {
+  const sql = "SELECT * from todos where active_flag = ?";
+  db.query(sql, ["N"], (err, results) => {
+    if (err) {
+      throw err;
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 //APP LISTENING ON THE MENTIONED PORT
 app.listen(PORT);
